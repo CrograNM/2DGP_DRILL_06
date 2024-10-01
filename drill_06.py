@@ -9,8 +9,11 @@ def buffer_draw():
     # 버퍼 채우기 : 배경, 화살표, 캐릭터 순서
     ground.draw(400, 300, 800, 600)
     arrow.clip_draw(0, 0, 50, 50, arrow_x, arrow_y)
-    character.clip_draw(frame * 100, 100, 100, 100, boy_x, boy_y)
-    # character.clip_composite_draw(frame * 38, 80, 38, 80, 0, 'h', x, y, 38, 80)
+    # 캐릭터는 화살표를 바라보며 이동
+    if arrow_x > boy_x :
+        character.clip_draw(frame * 100, 100, 100, 100, boy_x, boy_y)
+    else :
+        character.clip_composite_draw(frame * 100, 100, 100, 100, 0, 'h', boy_x, boy_y, 100, 100)
     frame = (frame + 1) % 8
     # 버퍼에 따라 그리기 및 이벤트 입력
     update_canvas()
@@ -49,8 +52,10 @@ isLeft = False
 
 boy_x = 800 // 2
 boy_y = 600 // 2
-arrow_x = random.randrange(0, 800)
-arrow_y = random.randrange(0, 600)
+#arrow_x = random.randrange(0, 800)
+#arrow_y = random.randrange(0, 600)
+arrow_x = 0
+arrow_y = 600   # 좌상단 테스트 (반전이동)
 dx = 0
 dy = 0
 frame = 0
