@@ -1,9 +1,6 @@
 # 2021184033 조성욱
 from pico2d import *
-
-open_canvas()
-ground = load_image('TUK_GROUND.png')
-character = load_image('animation_sheet.png')
+import random
 
 def handle_events():
     global playing
@@ -16,13 +13,23 @@ def handle_events():
                 playing = False
     pass
 
+open_canvas()
+ground = load_image('TUK_GROUND.png')
+character = load_image('animation_sheet.png')
+arrow = load_image('hand_arrow.png')
+
 playing = True
-running = False
 isLeft = False
-x = 800 // 2
-y = 90
+
+boy_x = 800 // 2
+boy_y = 600 // 2
+
+arrow_x = random.randrange(0, 800)
+arrow_y = random.randrange(0, 600)
+
 dx = 0
 dy = 0
+
 frame = 0
 
 # fill here
@@ -33,7 +40,8 @@ while playing:
         # 버퍼 채우기 : 배경
         ground.draw(400, 300, 800, 600)
         # 버퍼 채우기 : 캐릭터
-        character.clip_draw(frame * 100, 100, 100, 100, x, y)
+        character.clip_draw(frame * 100, 100, 100, 100, boy_x, boy_y)
+        arrow.clip_draw(0, 0, 50, 50, arrow_x, arrow_y)
         frame = (frame + 1) % 8
         # character.clip_composite_draw(frame * 38, 80, 38, 80, 0, 'h', x, y, 38, 80)
 
