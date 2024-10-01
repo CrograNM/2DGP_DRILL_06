@@ -1,7 +1,7 @@
 # 2021184033 조성욱
 from pico2d import *
 import random
-
+import math
 
 def handle_events():
     global playing
@@ -29,19 +29,25 @@ def buffer_draw():
     # 버퍼에 따라 그리기
     update_canvas()
 def move_line():
-    # 두개의 점만 그리기
     global boy_x, boy_y, arrow_x, arrow_y, frame
     x1, y1 = boy_x, boy_y
     x2, y2 = arrow_x, arrow_y
 
-    for i in range(0, 50):
-        t = i / 50
-
-        boy_x = (1-t)*x1 + t*x2
-        boy_y = (1-t)*y1 + t*y2
+    t = 0
+    speed = 0.1  # t의 변화 속도 (거리에 따라 조정 가능)
+    while t <= 1:
+        # t 값을 변화시키면서 boy_x와 boy_y를 갱신
+        boy_x = (1 - t) * x1 + t * x2
+        boy_y = (1 - t) * y1 + t * y2
         buffer_draw()
         handle_events()  # 종료 확인용
         if playing == False: break
+
+        # 거리에 따라 속도를 조절한다 -> 거리가 멀수록 속도가 큼
+        distance = math.sqrt((x2 - boy_x) ** 2 + (y2 - boy_y) ** 2)
+        speed = 0.005 + distance / 5000
+        t += speed
+
         delay(0.05)
 
 open_canvas()
