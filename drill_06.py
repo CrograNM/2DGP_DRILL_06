@@ -2,6 +2,20 @@
 from pico2d import *
 import random
 
+def buffer_draw():
+    global frame
+    # 버퍼 비우기
+    clear_canvas()
+    # 버퍼 채우기 : 배경, 화살표, 캐릭터 순서
+    ground.draw(400, 300, 800, 600)
+    arrow.clip_draw(0, 0, 50, 50, arrow_x, arrow_y)
+    character.clip_draw(frame * 100, 100, 100, 100, boy_x, boy_y)
+    # character.clip_composite_draw(frame * 38, 80, 38, 80, 0, 'h', x, y, 38, 80)
+    frame = (frame + 1) % 8
+    # 버퍼에 따라 그리기 및 이벤트 입력
+    update_canvas()
+    handle_events()  # 종료 확인용
+    pass
 def handle_events():
     global playing
     events = get_events()
@@ -22,18 +36,7 @@ def move_line():
 
         boy_x = (1-t)*x1 + t*x2
         boy_y = (1-t)*y1 + t*y2
-
-        # 버퍼 비우기
-        clear_canvas()
-        # 버퍼 채우기 : 배경, 화살표, 캐릭터 순서
-        ground.draw(400, 300, 800, 600)
-        arrow.clip_draw(0, 0, 50, 50, arrow_x, arrow_y)
-        character.clip_draw(frame * 100, 100, 100, 100, boy_x, boy_y)
-        # character.clip_composite_draw(frame * 38, 80, 38, 80, 0, 'h', x, y, 38, 80)
-        frame = (frame + 1) % 8
-        # 버퍼에 따라 그리기 및 이벤트 입력
-        update_canvas()
-        handle_events()  # 종료 확인용
+        buffer_draw()
         delay(0.05)
 
 open_canvas()
@@ -55,21 +58,7 @@ frame = 0
 move_line()
 
 while playing:
-
-        # 버퍼 비우기
-        clear_canvas()
-        # 버퍼 채우기 : 배경, 화살표, 캐릭터 순서
-        ground.draw(400, 300, 800, 600)
-        arrow.clip_draw(0, 0, 50, 50, arrow_x, arrow_y)
-        character.clip_draw(frame * 100, 100, 100, 100, boy_x, boy_y)
-        # character.clip_composite_draw(frame * 38, 80, 38, 80, 0, 'h', x, y, 38, 80)
-        frame = (frame + 1) % 8
-
-        # 좌표 이동
-
-        # 버퍼에 따라 그리기 및 이벤트 입력
-        update_canvas()
-        handle_events() # 종료 확인용
+        buffer_draw()
         delay(0.05)
 
 close_canvas()
