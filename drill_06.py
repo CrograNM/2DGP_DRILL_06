@@ -12,7 +12,7 @@ def handle_events():
         elif event.type == SDL_KEYDOWN:
             if event.key == SDLK_ESCAPE:
                 playing = False
-    pass
+
 def buffer_draw():
     global frame
     # 버퍼 비우기
@@ -28,6 +28,7 @@ def buffer_draw():
     frame = (frame + 1) % 8
     # 버퍼에 따라 그리기
     update_canvas()
+
 def move_line():
     global boy_x, boy_y, arrow_x, arrow_y, frame
     x1, y1 = boy_x, boy_y
@@ -71,4 +72,3 @@ while playing:
     arrow_y = random.randrange(0, 600)
 
 close_canvas()
-
