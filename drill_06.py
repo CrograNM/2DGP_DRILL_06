@@ -45,7 +45,8 @@ def move_line():
 
         # 거리에 따라 속도를 조절한다 -> 거리가 멀수록 속도가 큼
         distance = math.sqrt((x2 - boy_x) ** 2 + (y2 - boy_y) ** 2)
-        speed = 0.01 + distance / 6000
+        speed = 0.02 + distance / 3000
+        if speed > 0.07 : speed = 0.065    # 최대 속도 조절
         t += speed
 
         delay(0.05)
