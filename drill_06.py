@@ -34,8 +34,8 @@ def move_line():
     x1, y1 = boy_x, boy_y
     x2, y2 = arrow_x, arrow_y
 
-    for i in range(0, 100):
-        t = i / 100
+    for i in range(0, 50):
+        t = i / 50
 
         boy_x = (1-t)*x1 + t*x2
         boy_y = (1-t)*y1 + t*y2
@@ -58,11 +58,10 @@ arrow_x = random.randrange(0, 800)
 arrow_y = random.randrange(0, 600)
 frame = 0
 
-move_line()
 while playing:
-        buffer_draw()
-        handle_events()  # 종료 확인용
-        delay(0.05)
+    move_line()
+    arrow_x = random.randrange(0, 800)
+    arrow_y = random.randrange(0, 600)
 
 close_canvas()
 
